@@ -8,8 +8,8 @@ import {
 } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import axiosPublic from "../../config/aciosPublic";
 import { setUser } from "../../context/globalState/auth/actions";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 import useDispatch from "../../hooks/useDispatch";
 import useToggle from "../../hooks/useToggle";
 
@@ -18,6 +18,8 @@ export default function Login() {
   const [loading, setLoading] = useToggle()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  console.log(document.cookie)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,14 +43,15 @@ export default function Login() {
     };
    
     try {
-      const response = await axiosPublic.post('/api/auth/login', userData)
+      const response = await axiosSecure.post('/api/auth/login', userData)
       const responseData = response.data
-      console.log("response", response)
-      console.log("responseData", responseData)
+      // console.log("response", response)
+      // console.log("responseData", responseData)
 
       if (responseData?._id) {
         toast.success('Login successful!')
         dispatch(setUser(responseData))
+        
         response.role === 'House Renter' ? navigate('/dashboard/renterProfile', { replace: true }) : navigate('/dashboard/ownerProfile', { replace: true })
       }
       setLoading()
@@ -56,7 +59,7 @@ export default function Login() {
     } catch (error) {
       setLoading()
       console.dir(error);
-      toast.error("Some thing wrong!");
+      toast.error(error.message);
     }
   };
 

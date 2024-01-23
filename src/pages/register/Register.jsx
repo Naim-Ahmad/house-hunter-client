@@ -10,8 +10,8 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import axiosPublic from "../../config/aciosPublic";
 import { setUser } from "../../context/globalState/auth/actions";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 import useDispatch from "../../hooks/useDispatch";
 import useToggle from "../../hooks/useToggle";
 
@@ -50,10 +50,10 @@ export default function Register() {
     };
     // Send registration request to backend server (replace with your API endpoint)
     try {
-      const response = await axiosPublic.post('/api/auth/register', userData)
+      const response = await axiosSecure.post('/api/auth/register', userData)
       const responseData = response.data
-      console.log("response", response)
-      console.log("responseData", responseData)
+      // console.log("response", response)
+      // console.log("responseData", responseData)
 
       if (responseData?._id) {
         toast.success('Registration successful!')
@@ -65,7 +65,7 @@ export default function Register() {
     } catch (error) {
       setLoading()
       console.dir(error);
-      toast.error("Some thing wrong!");
+      toast.error(error.message || "Something wrong!");
     }
   };
 

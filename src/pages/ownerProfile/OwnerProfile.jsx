@@ -46,24 +46,18 @@ export default function OwnerProfile() {
           </CardHeader>
           <CardBody>
             <Typography className="mb-3 font-normal">
-              <span className="font-bold">Full Name: </span> {user?.name}
+              <span className="font-bold">Full Name: </span> {user?.fullName}
             </Typography>
             <Typography className="mb-3 font-normal">
               <span className="font-bold">Email: </span> {user?.email}
             </Typography>
 
             <Typography className="mb-3 font-normal">
-              <span className="font-bold">Blood Group: </span>{" "}
-              {user?.bloodGroup}
+              <span className="font-bold">Role: </span>{" "}
+              {user?.role}
             </Typography>
 
-            <Typography className="mb-3 font-normal">
-              <span className="font-bold">District: </span> {user?.district}
-            </Typography>
-
-            <Typography className="mb-3 font-normal">
-              <span className="font-bold">Upazila: </span> {user?.upazila}
-            </Typography>
+           
           </CardBody>
         </Card>
       </div>

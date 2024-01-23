@@ -21,7 +21,7 @@ export function DashboardSidebar() {
     <Card className="min-h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
-          Hi {user?.name}
+          Hi {user?.fullName}
         </Typography>
       </div>
       <List>

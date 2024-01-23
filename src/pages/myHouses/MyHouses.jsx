@@ -14,6 +14,8 @@ import {
   Input,
   Typography
 } from "@material-tailwind/react";
+import useToggle from "../../hooks/useToggle";
+import AddHouseModal from "./AddHouseModal";
 import HouseRow from "./HouseRow";
 
 const TABLE_HEAD = ["Name", "Amount", "Status", "Actions"];
@@ -72,6 +74,7 @@ const TABLE_ROWS = [
 ];
 
 export default function MyHouses() {
+  const [open, openHandler] = useToggle()
 
   return (
     <div className="py-6">
@@ -94,9 +97,10 @@ export default function MyHouses() {
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                 />
               </div>
-              <Button className="flex  mx-auto items-center gap-3" size="sm">
+              <Button onClick={openHandler} className="flex  mx-auto items-center gap-3" size="sm">
                 <PlusIcon strokeWidth={2} className="h-4 w-4" /> Add Home
               </Button>
+              <AddHouseModal open={open} handleOpen={openHandler}/>
             </div>
           </div>
         </CardHeader>
