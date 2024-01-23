@@ -4,19 +4,70 @@ import {
   Input,
   Option,
   Select,
+  Spinner,
   Typography
 } from "@material-tailwind/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import axiosPublic from "../../config/aciosPublic";
+import { setUser } from "../../context/globalState/auth/actions";
+import useDispatch from "../../hooks/useDispatch";
+import useToggle from "../../hooks/useToggle";
+
 
 export default function Register() {
   const [role, setRole] = useState('House Renter')
+  const [loading, setLoading] = useToggle()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  // console.log(dispatch)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const fullName = e.target.fullName.value;
+    const phoneNumber = e.target.number.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-  }
+    console.log(!fullName, !role, !phoneNumber, !email, !password);
+    // Validate form data
+    if (!fullName || !role || !phoneNumber || !email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    setLoading()
+
+    // Prepare user data
+    const userData = {
+      fullName,
+      role,
+      phoneNumber,
+      email,
+      password,
+    };
+    // Send registration request to backend server (replace with your API endpoint)
+    try {
+      const response = await axiosPublic.post('/api/auth/register', userData)
+      const responseData = response.data
+      console.log("response", response)
+      console.log("responseData", responseData)
+
+      if (responseData?._id) {
+        toast.success('Registration successful!')
+        dispatch(setUser(responseData))
+        response.role === 'House Renter' ? navigate('/dashboard/renterProfile', { replace: true }) : navigate('/dashboard/ownerProfile', { replace: true })
+      }
+      setLoading()
+
+    } catch (error) {
+      setLoading()
+      console.dir(error);
+      toast.error("Some thing wrong!");
+    }
+  };
 
   return (
     <div className="flex justify-center py-6 min-h-screen items-center">
@@ -38,6 +89,7 @@ export default function Register() {
               size="lg"
               type="text"
               placeholder="John doe"
+              name="fullName"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -51,6 +103,7 @@ export default function Register() {
             <Input
               size="lg"
               placeholder="name@mail.com"
+              name="email"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -66,6 +119,7 @@ export default function Register() {
                 </Typography>
                 <Input
                   size="lg"
+                  name="number"
                   placeholder="+88016********"
                   className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                   labelProps={{
@@ -97,6 +151,7 @@ export default function Register() {
               type="password"
               size="lg"
               placeholder="********"
+              name="password"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -104,8 +159,11 @@ export default function Register() {
             />
           </div>
 
-          <Button className="mt-6" fullWidth>
-            sign up
+          <Button type="submit" className="mt-6" fullWidth>
+            {
+              loading ? <Spinner className="mx-auto" /> : "sign up"
+            }
+
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}

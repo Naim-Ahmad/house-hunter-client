@@ -1,8 +1,8 @@
-import { CREATEUSER, LOGINUSER, LOGOUT } from "./actionType";
+import { LOGINUSER, LOGOUT, SETUSER } from "./actionType";
 
-export const createUser = (value) => {
+export const setUser = (value) => {
   return {
-    type: CREATEUSER,
+    type: SETUSER,
     payload: value,
   };
 };

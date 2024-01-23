@@ -5,5 +5,7 @@ export default function useUser() {
 
   const {state} = useContext(GlobalStateContext)
 
-  return state.user
+  console.log(state.authInfo)
+
+  return state.authInfo
 }
