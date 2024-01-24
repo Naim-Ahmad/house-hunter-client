@@ -8,7 +8,9 @@ import {
  
 export default function HouseCard({data}) {
   // console.log(Object.keys(data).join(','))
-  const {id,name,address,city,bedrooms,bathrooms,roomSize,picture,availabilityDate,rentPerMonth,phoneNumber,isBooked,description,userId} = data;
+  const {id,name,address,city,bedrooms,bathrooms,roomSize, picture, availabilityDate, rentPerMonth,phoneNumber,isBooked, description, userId} = data;
+
+  console.log(rentPerMonth)
   return (
     <Card className="w-full max-w-[48rem] flex-row">
       <CardHeader
@@ -32,8 +34,34 @@ export default function HouseCard({data}) {
         <Typography color="gray" className="mb-8 font-normal">
           {description}
         </Typography>
-        <a href="#" className="inline-block">
-          <Button variant="text" className="flex items-center gap-2">
+
+        <div className="grid grid-cols-2 gap-y-4 gap-x-5">
+          <div>
+            <span className="mr-2 font-semibold">Bedrooms:</span>
+            <span>{bedrooms}</span>
+          </div>
+          <div>
+            <span className="mr-2 font-semibold">Rent per month:</span>
+            <span>${rentPerMonth}</span>
+          </div>
+          <div>
+          <span className="mr-2 font-semibold">Bathrooms:</span>
+            <span>{bathrooms}</span>
+          </div>
+
+          <div>
+          <span className="mr-2 font-semibold">Room Size:</span>
+            <span>{roomSize}</span>
+          </div>
+
+          <div>
+          <span className="mr-2 font-semibold">Phone Number:</span>
+            <span>{phoneNumber}</span>
+          </div>
+
+          
+          
+          <Button variant="outlined" className="flex items-center gap-2 ">
            Book Now
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +78,9 @@ export default function HouseCard({data}) {
               />
             </svg>
           </Button>
-        </a>
+        </div>
+        
+        
       </CardBody>
     </Card>
   );

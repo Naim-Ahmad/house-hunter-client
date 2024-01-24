@@ -12,7 +12,8 @@ export default function useHouses() {
     queryFn: async ()=> {
       const result = await axiosSecure.get(`/api/myHouses/${user?._id}`)
       return result.data
-    }
+    },
+    
   })
 
   return {data, isLoading, refetch}

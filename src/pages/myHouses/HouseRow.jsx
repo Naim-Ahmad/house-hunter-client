@@ -20,7 +20,13 @@ export default function HouseRow(props) {
     city,
     rentPerMonth,
     address
+    _id
   } = props
+
+
+  const handleDelete = ()=>{
+
+  }
 
   const isLast = index === TABLE_ROWS.length - 1;
   const classes = isLast

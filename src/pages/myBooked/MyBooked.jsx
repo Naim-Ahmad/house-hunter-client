@@ -8,7 +8,7 @@ export default function MyBooked() {
       <Typography variant="h3" className="text-center my-6">My Booked Houses</Typography>
     </div>
       <div
-        className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+        className="relative flex flex-col w-full  overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <table className="w-full text-left table-auto min-w-max">
           <thead>
             <tr>

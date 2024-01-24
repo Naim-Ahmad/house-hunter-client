@@ -8,7 +8,7 @@ import {
   Spinner,
   Textarea,
 } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosPublic from "../../config/aciosPublic";
 import useToggle from "../../hooks/useToggle";
@@ -21,6 +21,8 @@ export default function AddHouseModal({ open, handleOpen }) {
 
   const user = useUser()
 
+  const queryClient = useQueryClient()
+
   const [loading, setLoading] = useToggle()
 
   const { mutateAsync } = useMutation({
@@ -28,7 +30,8 @@ export default function AddHouseModal({ open, handleOpen }) {
     mutationFn: async (houseInfo) => {
       const result = await axiosPublic.post('/api/addHouse', houseInfo)
       return result.data
-    }
+    },
+    onSuccess: () => queryClient.invalidateQueries(["myHouses"])
   })
 
   // console.log(user)
@@ -82,11 +85,10 @@ export default function AddHouseModal({ open, handleOpen }) {
 
         // console.log(houseInfo)
         mutateAsync(houseInfo)
-
-          .then(res => {
+        .then(res => {
+            handleOpen()
             // console.log(res)
             setLoading()
-            handleOpen()
             toast.success('Added home successfully!')
 
           })

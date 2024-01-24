@@ -59,6 +59,7 @@ export default function Register() {
         toast.success('Registration successful!')
         dispatch(setUser(responseData))
         response.role === 'House Renter' ? navigate('/dashboard/renterProfile', { replace: true }) : navigate('/dashboard/ownerProfile', { replace: true })
+        localStorage.setItem('isLoggedIn', true)
       }
       setLoading()
 
@@ -128,10 +129,7 @@ export default function Register() {
                 />
               </div>
 
-
-
               {/* role */}
-
               <div>
                 <Typography variant="h6" color="blue-gray" className="mb-3">
                   Register as

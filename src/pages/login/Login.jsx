@@ -51,7 +51,7 @@ export default function Login() {
       if (responseData?._id) {
         toast.success('Login successful!')
         dispatch(setUser(responseData))
-        
+        localStorage.setItem('isLoggedIn', true)
         response.role === 'House Renter' ? navigate('/dashboard/renterProfile', { replace: true }) : navigate('/dashboard/ownerProfile', { replace: true })
       }
       setLoading()
