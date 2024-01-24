@@ -35,14 +35,23 @@ export function DashboardSidebar() {
           </ListItem>
         </NavLink>
 
-        <NavLink to="/dashboard/myHouses">
+        {
+          user.role === 'House Owner' ? <NavLink to="/dashboard/myHouses">
           <ListItem>
             <ListItemPrefix>
               <HomeModernIcon className="h-5 w-5" />
             </ListItemPrefix>
             My Houses
           </ListItem>
+        </NavLink> : <NavLink to="/dashboard/myBooked">
+          <ListItem>
+            <ListItemPrefix>
+              <HomeModernIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            My Booked
+          </ListItem>
         </NavLink>
+        }
 
         <hr className="my-2 border-blue-gray-50" />
 

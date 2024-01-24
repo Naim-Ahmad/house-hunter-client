@@ -3,6 +3,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import MainLayout from "../layout/MainLayout";
 import HomeRoot from "../pages/home/HomeRoot";
 import Login from "../pages/login/Login";
+import MyBooked from "../pages/myBooked/MyBooked";
 import MyHouses from "../pages/myHouses/MyHouses";
 import OwnerProfile from "../pages/ownerProfile/OwnerProfile";
 import Register from "../pages/register/Register";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'ownerProfile',
         element: <OwnerProfile/>
+      },
+      {
+        path: 'myBooked',
+        element: <MyBooked/>
       },
     ]
   }
